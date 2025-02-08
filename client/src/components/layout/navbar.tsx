@@ -3,6 +3,7 @@ import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
+import { ModeToggle } from "@/components/ui/mode-toggle";
 import SignUpDialog from "../sign-up-dialog";
 import LoginDialog from "../login-dialog";
 
@@ -19,11 +20,14 @@ export default function Navbar() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
 
   return (
-    <nav className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <nav className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center px-6">
-        <Link href="/" className="flex items-center space-x-2">
-          <span className="text-xl font-bold text-primary">Soulevity</span>
-        </Link>
+        <ModeToggle />
+        <div className="ml-4 flex items-center space-x-2">
+          <Link href="/" className="flex items-center space-x-2">
+            <span className="text-xl font-bold text-primary">Soulevity</span>
+          </Link>
+        </div>
 
         {/* Desktop Navigation */}
         <div className="ml-auto hidden items-center space-x-6 md:flex">
@@ -55,7 +59,7 @@ export default function Navbar() {
               <Menu className="h-5 w-5" />
             </Button>
           </SheetTrigger>
-          <SheetContent side="right">
+          <SheetContent side="right" className="w-[300px] bg-background">
             <div className="flex flex-col gap-4">
               {navigation.map((item) => (
                 <Link
@@ -70,7 +74,7 @@ export default function Navbar() {
                   {item.name}
                 </Link>
               ))}
-              <hr className="my-4" />
+              <hr className="my-4 border-border" />
               <Button variant="ghost" onClick={() => setIsSignUpOpen(true)}>
                 Sign Up
               </Button>
