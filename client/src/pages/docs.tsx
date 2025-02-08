@@ -33,6 +33,7 @@ export default function Docs() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
+        className="text-center mx-auto max-w-3xl"
       >
         <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
           Documentation & Blogs
@@ -56,7 +57,7 @@ export default function Docs() {
                       {blog.date}
                     </span>
                   </div>
-                  <CardTitle className="text-xl">{blog.title}</CardTitle>
+                  <CardTitle className="text-xl text-center">{blog.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground">{blog.description}</p>
@@ -68,7 +69,7 @@ export default function Docs() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Categories</CardTitle>
+            <CardTitle className="text-center">Categories</CardTitle>
           </CardHeader>
           <CardContent>
             <ul className="space-y-2">

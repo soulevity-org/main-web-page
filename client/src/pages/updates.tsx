@@ -33,20 +33,18 @@ export default function Updates() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="flex items-center gap-4"
+        className="flex flex-col items-center text-center mx-auto max-w-3xl"
       >
-        <Bell className="h-8 w-8 text-primary" />
-        <div>
-          <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
-            Soulevity Updates
-          </h1>
-          <p className="mt-6 text-xl text-muted-foreground">
-            Stay informed about the latest changes and announcements.
-          </p>
-        </div>
+        <Bell className="h-8 w-8 text-primary mb-4" />
+        <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+          Soulevity Updates
+        </h1>
+        <p className="mt-6 text-xl text-muted-foreground">
+          Stay informed about the latest changes and announcements.
+        </p>
       </motion.div>
 
-      <div className="mt-16 space-y-8">
+      <div className="mt-16 space-y-8 max-w-4xl mx-auto">
         {updates.map((update) => (
           <motion.div
             key={update.title}
@@ -57,12 +55,12 @@ export default function Updates() {
             <Card>
               <CardHeader>
                 <div className="flex items-center justify-between">
-                  <CardTitle className="text-xl">{update.title}</CardTitle>
-                  <span className="rounded-full bg-primary/10 px-3 py-1 text-sm text-primary">
+                  <CardTitle className="text-xl text-center w-full">{update.title}</CardTitle>
+                  <span className="rounded-full bg-primary/10 px-3 py-1 text-sm text-primary whitespace-nowrap">
                     {update.type}
                   </span>
                 </div>
-                <span className="text-sm text-muted-foreground">
+                <span className="text-sm text-muted-foreground text-center block">
                   {update.date}
                 </span>
               </CardHeader>
