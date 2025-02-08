@@ -1,6 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { Bell } from "lucide-react";
+import { useState } from "react";
 
 const updates = [
   {
@@ -24,9 +26,24 @@ const updates = [
     description:
       "New research paper published on the impact of AI in modern education systems.",
   },
+  {
+    title: "New Social Media Integration",
+    date: "February 28, 2024",
+    type: "Social Media Update",
+    description:
+      "Connect and share your learning progress directly to your social media accounts.",
+  },
 ];
 
+const updateTypes = ["All", "Course Update", "Platform Update", "Research Update", "Social Media Update"];
+
 export default function Updates() {
+  const [selectedType, setSelectedType] = useState("All");
+
+  const filteredUpdates = updates.filter(
+    (update) => selectedType === "All" || update.type === selectedType
+  );
+
   return (
     <div className="container py-16">
       <motion.div
@@ -44,8 +61,21 @@ export default function Updates() {
         </p>
       </motion.div>
 
-      <div className="mt-16 space-y-8 max-w-4xl mx-auto">
-        {updates.map((update) => (
+      <div className="mt-12 flex flex-wrap gap-2 justify-center max-w-4xl mx-auto">
+        {updateTypes.map((type) => (
+          <Button
+            key={type}
+            variant={selectedType === type ? "default" : "outline"}
+            onClick={() => setSelectedType(type)}
+            className="min-w-[120px]"
+          >
+            {type}
+          </Button>
+        ))}
+      </div>
+
+      <div className="mt-8 space-y-8 max-w-4xl mx-auto">
+        {filteredUpdates.map((update) => (
           <motion.div
             key={update.title}
             initial={{ opacity: 0, x: -20 }}
