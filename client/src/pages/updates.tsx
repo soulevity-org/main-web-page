@@ -53,15 +53,13 @@ export default function Updates() {
             transition={{ duration: 0.5 }}
           >
             <Card>
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-xl text-center w-full">{update.title}</CardTitle>
-                  <span className="rounded-full bg-primary/10 px-3 py-1 text-sm text-primary whitespace-nowrap">
-                    {update.type}
-                  </span>
-                </div>
-                <span className="text-sm text-muted-foreground text-center block">
+              <CardHeader className="flex flex-col items-center space-y-2">
+                <CardTitle className="text-xl text-center">{update.title}</CardTitle>
+                <span className="text-sm text-muted-foreground">
                   {update.date}
+                </span>
+                <span className="rounded-full bg-primary/10 px-3 py-1 text-sm text-primary">
+                  {update.type}
                 </span>
               </CardHeader>
               <CardContent>
