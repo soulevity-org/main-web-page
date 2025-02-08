@@ -63,32 +63,32 @@ export default function Navbar() {
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
-          <SheetContent side="right" className="w-[300px] bg-background">
-            <div className="flex flex-col gap-4">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className={`text-sm font-medium transition-colors hover:text-primary ${
-                    location === item.href
-                      ? "text-primary"
-                      : "text-muted-foreground"
-                  }`}
-                >
-                  {item.name}
-                </Link>
-              ))}
-              <hr className="my-4 border-border" />
-              <Button variant="ghost" onClick={() => setIsSignUpOpen(true)}>
-                Sign Up
-              </Button>
-              <Button variant="default" onClick={() => setIsLoginOpen(true)}>
-                Login
-              </Button>
-            </div>
-          </SheetContent>
-        </Sheet>
-      </div>
+            <SheetContent side="right" className="w-[300px] bg-background">
+              <div className="flex flex-col gap-4">
+                {navigation.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className={`text-sm font-medium transition-colors hover:text-primary ${
+                      location === item.href
+                        ? "text-primary"
+                        : "text-muted-foreground"
+                    }`}
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+                <hr className="my-4 border-border" />
+                <Button variant="ghost" onClick={() => setIsSignUpOpen(true)}>
+                  Sign Up
+                </Button>
+                <Button variant="default" onClick={() => setIsLoginOpen(true)}>
+                  Login
+                </Button>
+              </div>
+            </SheetContent>
+          </Sheet>
+        </div>
 
       <SignUpDialog open={isSignUpOpen} onOpenChange={setIsSignUpOpen} />
       <LoginDialog open={isLoginOpen} onOpenChange={setIsLoginOpen} />
