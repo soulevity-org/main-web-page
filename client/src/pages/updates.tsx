@@ -8,41 +8,60 @@ const updates = [
   {
     title: "New Course Launch: Advanced Machine Learning",
     date: "March 5, 2024",
-    type: "Course Update",
+    type: "Courses",
     description:
       "We're excited to announce our new advanced machine learning course, covering deep learning and neural networks.",
   },
   {
     title: "Community Feature Updates",
     date: "March 3, 2024",
-    type: "Platform Update",
+    type: "Platform",
     description:
       "New community features have been added, including improved discussion boards and real-time chat.",
   },
   {
     title: "Research Paper: AI in Education",
     date: "March 1, 2024",
-    type: "Research Update",
+    type: "Research",
     description:
       "New research paper published on the impact of AI in modern education systems.",
   },
   {
     title: "New Social Media Integration",
     date: "February 28, 2024",
-    type: "Social Media Update",
+    type: "Social",
     description:
       "Connect and share your learning progress directly to your social media accounts.",
   },
 ];
 
-const updateTypes = ["All", "Course Update", "Platform Update", "Research Update", "Social Media Update"];
+const exploreContent = [
+  {
+    title: "AI Ethics in Modern Education",
+    date: "March 4, 2024",
+    type: "Explore",
+    description:
+      "Interesting findings about the ethical considerations of AI implementation in educational systems.",
+  },
+  {
+    title: "Future of Online Learning",
+    date: "March 2, 2024",
+    type: "Explore",
+    description:
+      "Latest trends and predictions about the evolution of online education platforms.",
+  },
+];
+
+const updateTypes = ["All", "Courses", "Platform", "Research", "Social", "Explore"];
 
 export default function Updates() {
   const [selectedType, setSelectedType] = useState("All");
 
-  const filteredUpdates = updates.filter(
-    (update) => selectedType === "All" || update.type === selectedType
-  );
+  const filteredContent = selectedType === "All" 
+    ? updates 
+    : selectedType === "Explore" 
+      ? exploreContent
+      : updates.filter(update => update.type === selectedType);
 
   return (
     <div className="container py-16">
@@ -75,7 +94,7 @@ export default function Updates() {
       </div>
 
       <div className="mt-8 space-y-8 max-w-4xl mx-auto">
-        {filteredUpdates.map((update) => (
+        {filteredContent.map((update) => (
           <motion.div
             key={update.title}
             initial={{ opacity: 0, x: -20 }}
