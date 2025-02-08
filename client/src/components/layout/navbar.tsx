@@ -22,11 +22,13 @@ export default function Navbar() {
   return (
     <nav className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center px-6">
-        <ModeToggle />
-        <div className="ml-4 flex items-center space-x-2">
+        <div className="flex items-center space-x-4">
           <Link href="/" className="flex items-center space-x-2">
             <span className="text-xl font-bold text-primary">Soulevity</span>
           </Link>
+        </div>
+        <div className="ml-4 hidden md:block">
+          <ModeToggle />
         </div>
 
         {/* Desktop Navigation */}
@@ -53,12 +55,14 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Navigation */}
-        <Sheet>
-          <SheetTrigger asChild className="ml-auto md:hidden">
-            <Button variant="ghost" size="icon">
-              <Menu className="h-5 w-5" />
-            </Button>
-          </SheetTrigger>
+        <div className="ml-auto flex items-center space-x-2 md:hidden">
+          <ModeToggle />
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon">
+                <Menu className="h-5 w-5" />
+              </Button>
+            </SheetTrigger>
           <SheetContent side="right" className="w-[300px] bg-background">
             <div className="flex flex-col gap-4">
               {navigation.map((item) => (
