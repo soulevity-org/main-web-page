@@ -19,6 +19,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+
 
 const loginSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -27,6 +29,11 @@ const loginSchema = z.object({
 
 const resetSchema = z.object({
   email: z.string().email("Invalid email address"),
+  contactMethod: z.enum(["email", "phone"]),
+  phoneNumber: z.string().optional().refine((val) => {
+    if (!val) return true;
+    return val.length >= 10;
+  }, "Phone number must be at least 10 digits"),
 });
 
 const verifyCodeSchema = z.object({
@@ -45,6 +52,7 @@ export default function LoginDialog({
 }) {
   const [view, setView] = useState<LoginView>("login");
   const { toast } = useToast();
+  const [contactMethod, setContactMethod] = useState<"email" | "phone">("email");
 
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -52,6 +60,9 @@ export default function LoginDialog({
 
   const resetForm = useForm<z.infer<typeof resetSchema>>({
     resolver: zodResolver(resetSchema),
+    defaultValues: {
+      contactMethod: "email",
+    },
   });
 
   const verifyForm = useForm<z.infer<typeof verifyCodeSchema>>({
@@ -59,7 +70,6 @@ export default function LoginDialog({
   });
 
   function onLogin(values: z.infer<typeof loginSchema>) {
-    // TODO: Implement login logic
     console.log("Login:", values);
     toast({
       title: "Success",
@@ -69,17 +79,15 @@ export default function LoginDialog({
   }
 
   function onRequestReset(values: z.infer<typeof resetSchema>) {
-    // TODO: Implement reset code sending logic
     console.log("Reset requested for:", values);
     toast({
       title: "Reset Code Sent",
-      description: "Please check your email for the reset code.",
+      description: `Please check your ${values.contactMethod} for the reset code.`,
     });
     setView("verify");
   }
 
   function onVerifyReset(values: z.infer<typeof verifyCodeSchema>) {
-    // TODO: Implement verification logic
     console.log("Verify reset:", values);
     toast({
       title: "Password Reset",
@@ -167,6 +175,58 @@ export default function LoginDialog({
                   </FormItem>
                 )}
               />
+
+              <FormField
+                control={resetForm.control}
+                name="contactMethod"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Reset Code Contact Method</FormLabel>
+                    <RadioGroup
+                      onValueChange={(value: "email" | "phone") => {
+                        field.onChange(value);
+                        setContactMethod(value);
+                      }}
+                      defaultValue={field.value}
+                      className="flex flex-col space-y-2"
+                    >
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="email" />
+                        </FormControl>
+                        <FormLabel className="font-normal">
+                          Send code to email
+                        </FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="phone" />
+                        </FormControl>
+                        <FormLabel className="font-normal">
+                          Send code to phone
+                        </FormLabel>
+                      </FormItem>
+                    </RadioGroup>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {contactMethod === "phone" && (
+                <FormField
+                  control={resetForm.control}
+                  name="phoneNumber"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Phone Number</FormLabel>
+                      <FormControl>
+                        <Input type="tel" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              )}
 
               <div className="flex gap-4">
                 <Button
