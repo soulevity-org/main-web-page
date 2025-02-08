@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { Github, Linkedin, Twitter } from "lucide-react";
+import { useState } from "react";
 
 const founders = [
   {
@@ -33,9 +34,77 @@ const departments = [
   "Development",
   "Management",
   "Marketing"
-];
+] as const;
+
+type Department = typeof departments[number];
+
+const teamMembers: Record<Department, Array<{
+  name: string;
+  role: string;
+  about: string;
+  image: string;
+  socials: {
+    twitter?: string;
+    linkedin?: string;
+  };
+}>> = {
+  Executives: [
+    {
+      name: "Sarah Johnson",
+      role: "Chief Operations Officer",
+      about: "Experienced operations leader with a focus on scaling educational platforms.",
+      image: "/team/sarah.jpg",
+      socials: {
+        twitter: "#",
+        linkedin: "#"
+      }
+    },
+    // Add more executives
+  ],
+  Development: [
+    {
+      name: "Alex Chen",
+      role: "Senior Frontend Developer",
+      about: "React specialist with a passion for creating intuitive user experiences.",
+      image: "/team/alex.jpg",
+      socials: {
+        twitter: "#",
+        linkedin: "#"
+      }
+    },
+    // Add more developers
+  ],
+  Management: [
+    {
+      name: "Michael Lee",
+      role: "Product Manager",
+      about: "Experienced in leading educational technology product development.",
+      image: "/team/michael.jpg",
+      socials: {
+        twitter: "#",
+        linkedin: "#"
+      }
+    },
+    // Add more managers
+  ],
+  Marketing: [
+    {
+      name: "Emma Wilson",
+      role: "Marketing Director",
+      about: "Digital marketing expert specializing in educational technology.",
+      image: "/team/emma.jpg",
+      socials: {
+        twitter: "#",
+        linkedin: "#"
+      }
+    },
+    // Add more marketing team members
+  ]
+};
 
 export default function About() {
+  const [selectedDepartment, setSelectedDepartment] = useState<Department>("Executives");
+
   return (
     <div className="min-h-screen">
       {/* Main Content Section */}
@@ -150,39 +219,47 @@ export default function About() {
             {departments.map((dept) => (
               <Button
                 key={dept}
-                variant="outline"
-                className="min-w-[120px]"
+                variant={selectedDepartment === dept ? "default" : "outline"}
+                className={`min-w-[120px] ${
+                  selectedDepartment === dept ? "bg-primary text-primary-foreground" : ""
+                }`}
+                onClick={() => setSelectedDepartment(dept)}
               >
                 {dept}
               </Button>
             ))}
           </div>
 
-          {/* Department Members Template */}
+          {/* Department Members */}
           <div className="grid gap-8 md:grid-cols-3 lg:grid-cols-4">
-            {/* Template for team member card - to be populated dynamically */}
-            <Card className="p-2">
-              <CardHeader>
-                <div className="w-24 h-24 mx-auto mb-4 overflow-hidden rounded-full bg-primary/10">
-                  {/* Member image */}
-                </div>
-                <CardTitle className="text-xl text-center">Member Name</CardTitle>
-                <CardDescription className="text-center">Role</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-center mb-4 text-sm text-muted-foreground">
-                  Brief description about the team member.
-                </p>
-                <div className="flex justify-center gap-2">
-                  <Button variant="ghost" size="sm">
-                    <Twitter className="h-4 w-4" />
-                  </Button>
-                  <Button variant="ghost" size="sm">
-                    <Linkedin className="h-4 w-4" />
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+            {teamMembers[selectedDepartment].map((member) => (
+              <Card key={member.name} className="p-2">
+                <CardHeader>
+                  <div className="w-24 h-24 mx-auto mb-4 overflow-hidden rounded-full bg-primary/10">
+                    {/* Member image */}
+                  </div>
+                  <CardTitle className="text-xl text-center">{member.name}</CardTitle>
+                  <CardDescription className="text-center">{member.role}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-center mb-4 text-sm text-muted-foreground">
+                    {member.about}
+                  </p>
+                  <div className="flex justify-center gap-2">
+                    {member.socials.twitter && (
+                      <Button variant="ghost" size="sm">
+                        <Twitter className="h-4 w-4" />
+                      </Button>
+                    )}
+                    {member.socials.linkedin && (
+                      <Button variant="ghost" size="sm">
+                        <Linkedin className="h-4 w-4" />
+                      </Button>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </section>
       </div>
