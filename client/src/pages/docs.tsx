@@ -41,9 +41,12 @@ export default function Docs() {
         <p className="mt-6 text-xl text-muted-foreground">
           Explore our latest articles, tutorials, and research papers.
         </p>
+        <br /> <br />
+        <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+          Coming Soon!
+        </h1>
       </motion.div>
-
-      <div className="mt-16 grid gap-8 md:grid-cols-2">
+      {/* <div className="mt-16 grid gap-8 md:grid-cols-2">
         <ScrollArea className="h-[600px] rounded-lg border p-4">
           <div className="space-y-8">
             {blogs.map((blog) => (
@@ -94,7 +97,7 @@ export default function Docs() {
             </ul>
           </CardContent>
         </Card>
-      </div>
+      </div> */}
     </div>
   );
 }

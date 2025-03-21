@@ -5,51 +5,65 @@ import { Bell } from "lucide-react";
 import { useState } from "react";
 
 const updates = [
+  // {
+  //   title: "New Course Launch: Advanced Machine Learning",
+  //   date: "March 5, 2024",
+  //   type: "Courses",
+  //   source: "https://courses.soulevity.org/machine-learning",
+  //   description:
+  //     "We're excited to announce our new advanced machine learning course, covering deep learning and neural networks.",
+  // },
   {
-    title: "New Course Launch: Advanced Machine Learning",
-    date: "March 5, 2024",
-    type: "Courses",
-    description:
-      "We're excited to announce our new advanced machine learning course, covering deep learning and neural networks.",
-  },
-  {
-    title: "Community Feature Updates",
-    date: "March 3, 2024",
+    title: "Soulevity's home web app has been uploaded.",
+    date: "March 21, 2025",
     type: "Platform",
+    source: "https://soulevity.org/",
     description:
-      "New community features have been added, including improved discussion boards and real-time chat.",
+      "An MVP website has been uploaded on soulevity.org",
   },
   {
-    title: "Research Paper: AI in Education",
-    date: "March 1, 2024",
-    type: "Research",
+    title: "Sahara Compute - Soulevity's favourite Cloud Computing Services",
+    date: "March 21, 2025",
+    type: "Explore",
+    source: "https://saharacompute.com/",
     description:
-      "New research paper published on the impact of AI in modern education systems.",
+      "Sahara Compute stands out in the cloud computing industry by offering high-performance virtual machines, scalable object storage, and managed services, all backed by 24/7 expert support. Their enterprise-grade infrastructure ensures unmatched speed and reliability, making them a trusted partner for businesses and individuals alike. Experience next-generation cloud computing with Sahara Compute. Enjoy enterprise-grade performance, 24/7 expert support, and transparent pricing without hidden fees. Get started today and receive a matching deposit of up to $100!",
   },
-  {
-    title: "New Social Media Integration",
-    date: "February 28, 2024",
-    type: "Social",
-    description:
-      "Connect and share your learning progress directly to your social media accounts.",
-  },
+  // {
+  //   title: "Research Paper: AI in Education",
+  //   date: "March 1, 2024",
+  //   type: "Research",
+  //   source: "https://research.soulevity.org/papers/ai-education",
+  //   description:
+  //     "New research paper published on the impact of AI in modern education systems.",
+  // },
+  // {
+  //   title: "New Social Media Integration",
+  //   date: "February 28, 2024",
+  //   type: "Social",
+  //   source: "https://soulevity.org/social",
+  //   description:
+  //     "Connect and share your learning progress directly to your social media accounts.",
+  // },
 ];
 
 const exploreContent = [
   {
-    title: "AI Ethics in Modern Education",
-    date: "March 4, 2024",
+    title: "Sahara Compute - Soulevity's favourite Cloud Computing Services",
+    date: "March 21, 2025",
     type: "Explore",
+    source: "https://saharacompute.com/",
     description:
-      "Interesting findings about the ethical considerations of AI implementation in educational systems.",
+      "Sahara Compute stands out in the cloud computing industry by offering high-performance virtual machines, scalable object storage, and managed services, all backed by 24/7 expert support. Their enterprise-grade infrastructure ensures unmatched speed and reliability, making them a trusted partner for businesses and individuals alike. Experience next-generation cloud computing with Sahara Compute. Enjoy enterprise-grade performance, 24/7 expert support, and transparent pricing without hidden fees. Get started today and receive a matching deposit of up to $100!",
   },
-  {
-    title: "Future of Online Learning",
-    date: "March 2, 2024",
-    type: "Explore",
-    description:
-      "Latest trends and predictions about the evolution of online education platforms.",
-  },
+  // {
+  //   title: "Future of Online Learning",
+  //   date: "March 2, 2024",
+  //   type: "Explore",
+  //   source: "https://blog.soulevity.org/future-learning",
+  //   description:
+  //     "Latest trends and predictions about the evolution of online education platforms.",
+  // },
 ];
 
 const updateTypes = ["All", "Courses", "Platform", "Research", "Social", "Explore"];
@@ -110,9 +124,19 @@ export default function Updates() {
                 <span className="rounded-full bg-primary/10 px-3 py-1 text-sm text-primary">
                   {update.type}
                 </span>
+                {update.source && (
+                  <a 
+                    href={update.source} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-sm text-primary hover:underline"
+                  >
+                    {update.source}
+                  </a>
+                )}
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground">{update.description}</p>
+                <p className="text-muted-foreground flex justify-center">{update.description}</p>
               </CardContent>
             </Card>
           </motion.div>
